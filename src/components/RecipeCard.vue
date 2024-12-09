@@ -31,36 +31,14 @@
             </form>
         </div>
 
-        <div class="row cards">
+        <div class="row cards" v-for="recipe in recipeList">
             <div class="col-md-4">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="..." title="...">
+                    <img :src=recipe.getImageURL() class="card-img-top" alt="..." title="...">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Name</h5>
-                        <p class="card-text times">CookTime</p>
-                        <p class="card-text easy text-center">Difficulty</p>
-                        <a href="#" class="btn btn-primary">Részletek</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="..." class="card-img-top" alt="..." title="...">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Name</h5>
-                        <p class="card-text times">CookTime</p>
-                        <p class="card-text easy text-center">Difficulty</p>
-                        <a href="#" class="btn btn-primary">Részletek</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="..." class="card-img-top" alt="..." title="...">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Name</h5>
-                        <p class="card-text times">CookTime</p>
-                        <p class="card-text easy text-center">Difficulty</p>
+                        <h5 class="card-title text-center">{{ recipe.getName() }}</h5>
+                        <p class="card-text times">Elkészítési idő: {{ recipe.getCookTime() }}</p>
+                        <p class="card-text easy text-center">{{ recipe.getDifficulty() }}</p>
                         <a href="#" class="btn btn-primary">Részletek</a>
                     </div>
                 </div>
