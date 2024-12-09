@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+#todo and vscode
+/draft
+todo.txt
+.code-workspace
