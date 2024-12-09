@@ -6,7 +6,17 @@ export class Recipe {
     #imageURL;
 
     constructor(id, name, cookTime, difficulty, imageURL) {
+        this.setId(id);
+        this.setName(name);
+        this.setCookTime(cookTime);
+        this.setDifficulty(difficulty);
+        this.setImageURL(imageURL);
 
+        this.getId = this.getId.bind(this);
+        this.getName = this.getName.bind(this);
+        this.getCookTime = this.getCookTime.bind(this);
+        this.getDifficulty = this.getDifficulty.bind(this);
+        this.getImageURL = this.getImageURL.bind(this);
     }
 
     setId(id) {

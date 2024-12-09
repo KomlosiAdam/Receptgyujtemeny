@@ -1,12 +1,12 @@
 <script setup>
 import {ref} from 'vue'
     import RecipeCard from './components/RecipeCard.vue'
-    import Recipe from './classes/Recipe'
+    import {Recipe} from './classes/Recipe'
     import {recipes} from './data/recipes'
 
     const recipeList = ref([]);
     for(let recipe of recipes) {
-        recipeList.value.add(new Recipe(recipe.id, recipe.name, recipe.cookTime, recipe.difficulty, recipe.imageURL))
+        recipeList.value.push(new Recipe(recipe.id, recipe.name, recipe.cookTime, recipe.difficulty, recipe.imageURL))
     }
 </script>
 
