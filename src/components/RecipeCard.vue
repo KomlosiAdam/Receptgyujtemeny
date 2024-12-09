@@ -31,14 +31,36 @@
             </form>
         </div>
 
-        <div class="row">
-            <div class="col-md-3">
+        <div class="row cards">
+            <div class="col-md-4">
                 <div class="card">
                     <img src="..." class="card-img-top" alt="..." title="...">
                     <div class="card-body">
-                        <h5 class="card-title">Name</h5>
-                        <p class="card-text">CookTime</p>
-                        <p class="card-text easy">Difficulty</p>
+                        <h5 class="card-title text-center">Name</h5>
+                        <p class="card-text times">CookTime</p>
+                        <p class="card-text easy text-center">Difficulty</p>
+                        <a href="#" class="btn btn-primary">Részletek</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="..." class="card-img-top" alt="..." title="...">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Name</h5>
+                        <p class="card-text times">CookTime</p>
+                        <p class="card-text easy text-center">Difficulty</p>
+                        <a href="#" class="btn btn-primary">Részletek</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="..." class="card-img-top" alt="..." title="...">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Name</h5>
+                        <p class="card-text times">CookTime</p>
+                        <p class="card-text easy text-center">Difficulty</p>
                         <a href="#" class="btn btn-primary">Részletek</a>
                     </div>
                 </div>
@@ -51,24 +73,33 @@
 <style scoped>
 .easy,
 .medium,
-.hard,
-.row form {
-    border-radius: 10px;
+.hard{
     color: #fff;
+    width: 35%;
 }
-
+.easy,.medium,.hard,.row form{
+    border-radius: 10px;
+}
+.row form{
+    width: 80%;
+    margin: 30px auto auto auto;
+}
+.form-control, .form-select, .cards{
+    margin: 20px auto;
+}
 .card {
     width: 18rem;
+    margin: 0px auto;
 }
 
 .card:hover {
-    width: 19rem;
+    animation: alternate;
+    animation-duration: 100ms;
 }
 
-.btn-primary:hover {
-    width: 40%;
+form{
+    padding: 20px;
 }
-
 
 .row form {
     border: 1px solid rgb(128, 128, 128);
