@@ -5,6 +5,27 @@
 <template>
     <div class="container-fluid">
         <div class="row">
+            <form>
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Nehézség alapján lévő keresés</option>
+                    <option value="1">Könnyű</option>
+                    <option value="2">Közepes</option>
+                    <option value="3">Nehéz</option>
+                </select>
+
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Rendezés</option>
+                    <option value="1">Név szerint</option>
+                    <option value="2">Elkészítési időszerint</option>
+                </select>
+
+            </form>
+        </div>
+
+        <div class="row">
             <div class="col-md-3">
                 <div class="card">
                     <img src="..." class="card-img-top" alt="..." title="...">
@@ -22,6 +43,14 @@
 </template>
 
 <style scoped>
+.easy,
+.medium,
+.hard,
+.row form {
+    border-radius: 10px;
+    color: #fff;
+}
+
 .card {
     width: 18rem;
 }
@@ -34,11 +63,10 @@
     width: 40%;
 }
 
-.easy,
-.medium,
-.hard {
-    border-radius: 10px;
-    color: #fff;
+
+.row form {
+    border: 1px solid rgb(128, 128, 128);
+    background-color: rgb(204, 204, 204);
 }
 
 .easy {
