@@ -31,14 +31,14 @@
             </form>
         </div>
 
-        <div class="row cards" v-for="recipe in recipeList">
-            <div class="col-md-4">
+        <div class="row cards" >
+            <div class="col-md-4" v-for="recipe in recipeList">
                 <div class="card">
                     <img :src=recipe.getImageURL() class="card-img-top" alt="..." title="...">
                     <div class="card-body">
                         <h5 class="card-title text-center">{{ recipe.getName() }}</h5>
                         <p class="card-text times">Elkészítési idő: {{ recipe.getCookTime() }}</p>
-                        <p class="card-text easy text-center">{{ recipe.getDifficulty() }}</p>
+                        <p class="card-text text-center">{{ recipe.getDifficulty() }}</p>
                         <a href="#" class="btn btn-primary">Részletek</a>
                     </div>
                 </div>
@@ -65,9 +65,12 @@
 .form-control, .form-select, .cards{
     margin: 20px auto;
 }
+img{
+    height: 150px;
+}
 .card {
     width: 18rem;
-    margin: 0px auto;
+    margin: 10px auto;
 }
 
 .card:hover {

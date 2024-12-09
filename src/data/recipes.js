@@ -31,7 +31,7 @@ export const recipes = [
         id: 5,
         name: "Gulyásleves",
         cookTime: 90,
-        difficulty: "nehezebb",
+        difficulty: "nehéz",
         imageURL: "/src/assets/images/Gulyasleves.jpeg",
     },
     {
@@ -52,14 +52,14 @@ export const recipes = [
         id: 8,
         name: "Epres Sajttorta",
         cookTime: 60,
-        difficulty: "nehezebb",
+        difficulty: "nehéz",
         imageURL: "/src/assets/images/EpresSajttorta.jpg",
     },
     {
         id: 9,
         name: "Tojásrántotta",
         cookTime: 5,
-        difficulty: "nagyon könnyű",
+        difficulty: "könnyű",
         imageURL: "/src/assets/images/Tojasrantotta.jpg",
     },
     {
