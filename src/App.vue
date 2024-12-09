@@ -1,13 +1,5 @@
 <script setup>
-import {ref} from 'vue'
     import RecipeCard from './components/RecipeCard.vue'
-    import {Recipe} from './classes/Recipe'
-    import {recipes} from './data/recipes'
-
-    const recipeList = ref([]);
-    for(let recipe of recipes) {
-        recipeList.value.push(new Recipe(recipe.id, recipe.name, recipe.cookTime, recipe.difficulty, recipe.imageURL))
-    }
 </script>
 
 <template>
@@ -33,7 +25,7 @@ import {ref} from 'vue'
         </nav>
     </header>
     <main>
-        
+        <RecipeCard />
     </main>
     <footer>
 
