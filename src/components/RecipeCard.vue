@@ -120,4 +120,15 @@ form{
     background-color: rgb(255, 0, 0);
     border: 1px solid rgb(255, 0, 0);
 }
+@media only screen and (max-width: 800px) {
+  .card{
+    margin: 20px auto;
+    width: 18rem;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .card{
+    width: 15rem;
+  }
+}
 </style>
