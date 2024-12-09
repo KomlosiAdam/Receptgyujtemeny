@@ -14,7 +14,6 @@
         <div class="row">
             <form>
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
 
                 <select class="form-select" aria-label="Default select example">
                     <option selected>Nehézség alapján lévő keresés</option>
