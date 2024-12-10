@@ -1,24 +1,20 @@
 <script setup>
 import { Recipe } from '../classes/Recipe'
 import { recipes } from '../data/recipes'
-import { ref, computed, defineProps, defineEmits } from "vue"
-
-const search = ref("");
-const recipeList = ref(recipes);
-const filteredRecipes = computed(() => {
-    var tmp = recipeList.value.filter(recipe =>
-        recipe.name.toLowerCase().includes(search.value.toLowerCase()) ||
-        recipe.description.toLowerCase().includes(search.value.toLowerCase()) ||
-        recipe.difficulty.toLowerCase().includes(search.value.toLowerCase())
-    );
-    return tmp;
-});
-
+import { ref, computed } from "vue"
 
 const recipesList = ref([]);
 for (let recipe of recipes) {
     recipesList.value.push(new Recipe(recipe.id, recipe.name, recipe.cookTime, recipe.difficulty, recipe.imageURL))
 }
+
+const search = ref("");
+const filteredRecipes = computed(() => {
+    return recipesList.value.filter(recipe =>
+        recipe.getName().toLowerCase().includes(search.value.toLowerCase()) ||
+        recipe.getCookTime() <= search.value
+    );
+});
 </script>
 
 <template>
@@ -47,11 +43,15 @@ for (let recipe of recipes) {
         <div class="row cards">
             <div class="col-md-4" v-for="recipe in filteredRecipes">
                 <div class="card">
-                    <img :src=recipe.imageURL class="card-img-top" :alt=recipe.name :title=recipe.name>
+                    <img :src=recipe.getImageURL() class="card-img-top" :alt=recipe.getName() :title=recipe.getName()>
                     <div class="card-body">
-                        <h5 class="card-title text-center">{{ recipe.name }}</h5>
-                        <p class="card-text times">Elkészítési idő: {{ recipe.cookTime }}</p>
-                        <p class="card-text text-center">{{ recipe.difficulty }}</p>
+                        <h5 class="card-title text-center">{{ recipe.getName() }}</h5>
+                        <p class="card-text times">Elkészítési idő: {{ recipe.getCookTime() }}</p>
+                        <p class="card-text text-center" :class="{
+                            'easy': recipe.getDifficulty() === 'könnyű',
+                            'medium': recipe.getDifficulty() === 'közepes',
+                            'hard': recipe.getDifficulty() === 'nehéz',
+                        }">{{ recipe.getDifficulty() }}</p>
                         <a href="#" class="btn btn-primary">Részletek</a>
                     </div>
                 </div>
