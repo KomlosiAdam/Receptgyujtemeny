@@ -1,19 +1,32 @@
 <script setup>
-    import {ref} from 'vue'
-    import {Recipe} from '../classes/Recipe'
-    import {recipes} from '../data/recipes'
+import { Recipe } from '../classes/Recipe'
+import { recipes } from '../data/recipes'
+import { ref, computed, defineProps, defineEmits } from "vue"
 
-    const recipeList = ref([]);
-    for(let recipe of recipes) {
-        recipeList.value.push(new Recipe(recipe.id, recipe.name, recipe.cookTime, recipe.difficulty, recipe.imageURL))
-    }
+const search = ref("");
+const recipeList = ref(recipes);
+const filteredRecipes = computed(() => {
+    var tmp = recipeList.value.filter(recipe =>
+        recipe.name.toLowerCase().includes(search.value.toLowerCase()) ||
+        recipe.description.toLowerCase().includes(search.value.toLowerCase()) ||
+        recipe.difficulty.toLowerCase().includes(search.value.toLowerCase())
+    );
+    return tmp;
+});
+
+
+const recipesList = ref([]);
+for (let recipe of recipes) {
+    recipesList.value.push(new Recipe(recipe.id, recipe.name, recipe.cookTime, recipe.difficulty, recipe.imageURL))
+}
 </script>
 
 <template>
     <div class="container-fluid">
         <div class="row">
             <form>
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" v-model="search" placeholder="Search"
+                    aria-label="Search">
 
                 <select class="form-select" aria-label="Default select example">
                     <option selected>Nehézség alapján lévő keresés</option>
@@ -31,14 +44,14 @@
             </form>
         </div>
 
-        <div class="row cards" >
-            <div class="col-md-4" v-for="recipe in recipeList">
+        <div class="row cards">
+            <div class="col-md-4" v-for="recipe in filteredRecipes">
                 <div class="card">
-                    <img :src=recipe.getImageURL() class="card-img-top" alt="..." title="...">
+                    <img :src=recipe.imageURL class="card-img-top" :alt=recipe.name :title=recipe.name>
                     <div class="card-body">
-                        <h5 class="card-title text-center">{{ recipe.getName() }}</h5>
-                        <p class="card-text times">Elkészítési idő: {{ recipe.getCookTime() }}</p>
-                        <p class="card-text text-center">{{ recipe.getDifficulty() }}</p>
+                        <h5 class="card-title text-center">{{ recipe.name }}</h5>
+                        <p class="card-text times">Elkészítési idő: {{ recipe.cookTime }}</p>
+                        <p class="card-text text-center">{{ recipe.difficulty }}</p>
                         <a href="#" class="btn btn-primary">Részletek</a>
                     </div>
                 </div>
@@ -51,23 +64,33 @@
 <style scoped>
 .easy,
 .medium,
-.hard{
+.hard {
     color: #fff;
     width: 35%;
 }
-.easy,.medium,.hard,.row form{
+
+.easy,
+.medium,
+.hard,
+.row form {
     border-radius: 10px;
 }
-.row form{
+
+.row form {
     width: 80%;
     margin: 30px auto auto auto;
 }
-.form-control, .form-select, .cards{
+
+.form-control,
+.form-select,
+.cards {
     margin: 20px auto;
 }
-img{
+
+img {
     height: 150px;
 }
+
 .card {
     width: 18rem;
     margin: 10px auto;
@@ -78,7 +101,7 @@ img{
     animation-duration: 100ms;
 }
 
-form{
+form {
     padding: 20px;
 }
 
@@ -101,15 +124,17 @@ form{
     background-color: rgb(255, 0, 0);
     border: 1px solid rgb(255, 0, 0);
 }
+
 @media only screen and (max-width: 800px) {
-  .card{
-    margin: 20px auto;
-    width: 18rem;
-  }
+    .card {
+        margin: 20px auto;
+        width: 18rem;
+    }
 }
+
 @media only screen and (max-width: 1000px) {
-  .card{
-    width: 15rem;
-  }
+    .card {
+        width: 15rem;
+    }
 }
 </style>
