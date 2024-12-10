@@ -7,7 +7,7 @@ const recipesList = ref([]);
 for (let recipe of recipes) {
     recipesList.value.push(new Recipe(recipe.id, recipe.name, recipe.cookTime, recipe.difficulty, recipe.imageURL))
 }
-
+const vanRecept = ref(false);
 const search = ref("");
 const filteredRecipes = computed(() => {
     return recipesList.value.filter(recipe =>
@@ -41,7 +41,7 @@ const filteredRecipes = computed(() => {
         </div>
 
         <div class="row cards">
-            <div class="col-md-4" v-for="recipe in filteredRecipes">
+            <div class="col-md-4" v-for="recipe in filteredRecipes" v-if="filteredRecipes.length!=0">
                 <div class="card">
                     <img :src=recipe.getImageURL() class="card-img-top" :alt=recipe.getName() :title=recipe.getName()>
                     <div class="card-body">
@@ -55,6 +55,9 @@ const filteredRecipes = computed(() => {
                         <a href="#" class="btn btn-primary">Részletek</a>
                     </div>
                 </div>
+            </div>
+            <div class="text-center errorMessage" v-else>
+                <p>Nincs ilyen recept!</p>
             </div>
         </div>
     </div>
@@ -116,8 +119,12 @@ form {
 }
 
 .medium {
-    background-color: rgb(255, 255, 0);
-    border: 1px solid rgb(255, 255, 0);
+    background-color: rgb(192, 192, 0);
+    border: 1px solid rgb(192, 192, 0);
+}
+
+.errorMessage{
+    font-weight: 700;
 }
 
 .hard {
