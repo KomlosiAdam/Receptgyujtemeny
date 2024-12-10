@@ -42,4 +42,12 @@
     </form>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+.btn-success:hover{
+    background-color: rgb(0, 192, 0);
+    border: 1px solid rgb(0, 192, 0);
+    color: #000;
+}
+
+</style>

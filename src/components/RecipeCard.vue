@@ -121,14 +121,23 @@ watch(difficulty, (newValue, oldValue) => {
     color: #fff;
     width: 35%;
 }
-
 .easy,
 .medium,
 .hard,
 .row form {
     border-radius: 10px;
 }
-
+.btn-primary:hover{
+    text-decoration: none;
+    background-color: #fff;
+    color: #000;  
+}
+.card:hover,.btn-primary:hover{
+    animation-duration: 10ms;
+}
+.card:hover{
+    width: 72%;
+}
 .row form {
     width: 80%;
     margin: 30px auto auto auto;
