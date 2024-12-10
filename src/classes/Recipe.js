@@ -4,12 +4,14 @@ export class Recipe {
     #cookTime;
     #difficulty;
     #imageURL;
+    #description;
 
-    constructor(id, name, cookTime, difficulty, imageURL) {
+    constructor(id, name, cookTime, difficulty, description, imageURL) {
         this.setId(id);
         this.setName(name);
         this.setCookTime(cookTime);
         this.setDifficulty(difficulty);
+        this.setDescription(description);
         this.setImageURL(imageURL);
 
         this.getId = this.getId.bind(this);
@@ -17,6 +19,7 @@ export class Recipe {
         this.getCookTime = this.getCookTime.bind(this);
         this.getDifficulty = this.getDifficulty.bind(this);
         this.getImageURL = this.getImageURL.bind(this);
+        this.setDescription = this.getDescription.bind(this);
     }
 
     setId(id) {
@@ -25,6 +28,14 @@ export class Recipe {
 
     getId() {
         return this.#id;
+    }
+
+    setDescription(description) {
+        this.#description = description;
+    }
+
+    getDescription() {
+        return this.#description;
     }
 
     setName(name) {
