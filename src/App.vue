@@ -1,5 +1,13 @@
 <script setup>
-    import RecipeCard from './components/RecipeCard.vue'
+import { ref } from 'vue';
+import RecipeCard from './components/RecipeCard.vue';
+import RecipeForm from './components/RecipeForm.vue';
+
+
+const currentView = ref('home');
+
+const showHome = () => currentView.value = 'home';
+const showAddRecipe = () => currentView.value = 'addRecipe';
 </script>
 
 <template>
@@ -14,24 +22,25 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Főoldal</a>
+                            <a class="nav-link" href="#" @click="showHome">Főoldal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Hozzáadás</a>
+                            <a class="nav-link" href="#" @click="showAddRecipe">Hozzáadás</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+    
     <main>
-        <RecipeCard />
+        <RecipeCard v-if="currentView === 'home'" />
+        <RecipeForm v-if="currentView === 'addRecipe'" />
     </main>
+    
     <footer>
-
     </footer>
 </template>
 
 <style scoped>
-
 </style>
