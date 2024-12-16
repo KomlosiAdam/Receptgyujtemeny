@@ -46,13 +46,11 @@ const sortedRecipes = computed(() => {
     let sourceList = isDifficultyFiltered.value === 1 ? difficultyFilteredList.value : filteredRecipes.value;
 
     if (sort.value == 1) {
-        // Név szerint rendezés
         return [...sourceList].sort((a, b) => a.getName().localeCompare(b.getName()));
     } else if (sort.value == 2) {
-        // Elkészítési idő szerint rendezés
         return [...sourceList].sort((a, b) => a.getCookTime() - b.getCookTime());
     }
-    return sourceList; // Alapértelmezett lista
+    return sourceList;
 });
 
 const currentView = ref('home');
@@ -104,25 +102,26 @@ const showAddRecipe = () => currentView.value = 'addRecipe';
                             <option value="1">Név szerint</option>
                             <option value="2">Elkészítési időszerint</option>
                         </select>
-
                     </form>
                 </div>
 
-                <div class="row cards">
+                <div class="row">
                     <div v-if="isDifficultyFiltered != 1">
-                        <div class="col-md-4" v-for="recipe in sortedRecipes" v-if="sortedRecipes.length != 0">
-                            <div class="card">
-                                <img :src=recipe.getImageURL() class="card-img-top" :alt=recipe.getName()
-                                    :title=recipe.getName()>
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">{{ recipe.getName() }}</h5>
-                                    <p class="card-text times">Elkészítési idő: {{ recipe.getCookTime() }}</p>
-                                    <p class="card-text text-center" :class="{
-                                        'easy': recipe.getDifficulty() === 'könnyű',
-                                        'medium': recipe.getDifficulty() === 'közepes',
-                                        'hard': recipe.getDifficulty() === 'nehéz',
-                                    }">{{ recipe.getDifficulty() }}</p>
-                                    <a href="#" class="btn btn-primary">Részletek</a>
+                        <div class="row row-cols-1 row-cols-md-3 g-4" v-if="sortedRecipes.length != 0">
+                            <div class="col" v-for="recipe in sortedRecipes" :key="recipe.id">
+                                <div class="card h-100">
+                                    <img :src="recipe.getImageURL()" class="card-img-top" :alt="recipe.getName()"
+                                        :title="recipe.getName()">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">{{ recipe.getName() }}</h5>
+                                        <p class="card-text times">Elkészítési idő: {{ recipe.getCookTime() }}</p>
+                                        <p class="card-text text-center" :class="{
+                                            'easy': recipe.getDifficulty() === 'könnyű',
+                                            'medium': recipe.getDifficulty() === 'közepes',
+                                            'hard': recipe.getDifficulty() === 'nehéz',
+                                        }">{{ recipe.getDifficulty() }}</p>
+                                        <a href="#" class="btn btn-primary">Részletek</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -131,19 +130,21 @@ const showAddRecipe = () => currentView.value = 'addRecipe';
                         </div>
                     </div>
                     <div v-else>
-                        <div class="col-md-4" v-for="recipe in sortedRecipes" v-if="sortedRecipes.length != 0">
-                            <div class="card">
-                                <img :src=recipe.getImageURL() class="card-img-top" :alt=recipe.getName()
-                                    :title=recipe.getName()>
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">{{ recipe.getName() }}</h5>
-                                    <p class="card-text times">Elkészítési idő: {{ recipe.getCookTime() }}</p>
-                                    <p class="card-text text-center" :class="{
-                                        'easy': recipe.getDifficulty() === 'könnyű',
-                                        'medium': recipe.getDifficulty() === 'közepes',
-                                        'hard': recipe.getDifficulty() === 'nehéz',
-                                    }">{{ recipe.getDifficulty() }}</p>
-                                    <a href="#" class="btn btn-primary">Részletek</a>
+                        <div class="row row-cols-1 row-cols-md-3 g-4" v-if="sortedRecipes.length != 0">
+                            <div class="col" v-for="recipe in sortedRecipes" :key="recipe.id">
+                                <div class="card h-100">
+                                    <img :src="recipe.getImageURL()" class="card-img-top" :alt="recipe.getName()"
+                                        :title="recipe.getName()">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">{{ recipe.getName() }}</h5>
+                                        <p class="card-text times">Elkészítési idő: {{ recipe.getCookTime() }}</p>
+                                        <p class="card-text text-center" :class="{
+                                            'easy': recipe.getDifficulty() === 'könnyű',
+                                            'medium': recipe.getDifficulty() === 'közepes',
+                                            'hard': recipe.getDifficulty() === 'nehéz',
+                                        }">{{ recipe.getDifficulty() }}</p>
+                                        <a href="#" class="btn btn-primary">Részletek</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -152,7 +153,6 @@ const showAddRecipe = () => currentView.value = 'addRecipe';
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <RecipeForm @add="add" v-if="currentView === 'addRecipe'" />
@@ -183,47 +183,19 @@ const showAddRecipe = () => currentView.value = 'addRecipe';
     color: #000;
 }
 
-.card:hover,
-.btn-primary:hover {
-    animation-duration: 10ms;
-}
-
-.card:hover {
-    width: 72%;
-}
-
 .row form {
     width: 80%;
     margin: 30px auto auto auto;
 }
 
 .form-control,
-.form-select,
-.cards {
+.form-select {
     margin: 20px auto;
 }
 
 img {
-    height: 150px;
-}
-
-.card {
-    width: 18rem;
-    margin: 10px auto;
-}
-
-.card:hover {
-    animation: alternate;
-    animation-duration: 100ms;
-}
-
-form {
-    padding: 20px;
-}
-
-.row form {
-    border: 1px solid rgb(128, 128, 128);
-    background-color: rgb(204, 204, 204);
+    height: 200px;
+    object-fit: cover;
 }
 
 .easy {
@@ -243,22 +215,5 @@ form {
 .hard {
     background-color: rgb(255, 0, 0);
     border: 1px solid rgb(255, 0, 0);
-}
-
-@media only screen and (max-width: 800px) {
-    .card {
-        margin: 20px auto;
-        width: 18rem;
-    }
-
-    .card:hover {
-        width: 35%;
-    }
-}
-
-@media only screen and (max-width: 1000px) {
-    .card {
-        width: 15rem;
-    }
 }
 </style>
