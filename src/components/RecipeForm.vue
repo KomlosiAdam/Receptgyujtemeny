@@ -64,6 +64,12 @@ watch([recipeName, cookingTime, difficulty, description], validateForm);
 
 const openModal = () => {
   if (isButtonEnabled.value) {
+    modalData.value = {
+      recipeName: recipeName.value,
+      cookingTime: cookingTime.value,
+      difficulty: difficulty.value,
+      description: description.value,
+    };
     showModal.value = true;
   }
 };
@@ -204,5 +210,11 @@ span, .close {
   margin: auto;
   text-align: center;
 }
+@media only screen and (max-width: 800px) {
+    .col-md-6{
+        width: 50%;
+    }
+}
+
 
 </style>

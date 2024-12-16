@@ -37,7 +37,7 @@ watch(difficulty, (newValue) => {
     } else if (newValue == 3) {
         difficultyFilteredList.value = sourceList.filter(recipe => recipe.getDifficulty() === "nehéz");
     } else {
-        isDifficultyFiltered.value = 0; // Reset if "Nehézség alapján lévő keresés"
+        isDifficultyFiltered.value = 0;
     }
 });
 
@@ -85,7 +85,7 @@ const showAddRecipe = () => currentView.value = 'addRecipe';
     </header>
 
     <main>
-        <div v-if="currentView=='home'">
+        <div v-if="currentView == 'home'">
             <div class="container-fluid">
                 <div class="row">
                     <form>
@@ -252,12 +252,13 @@ form {
     }
 
     .card:hover {
-    width: 35%;
-}
+        width: 35%;
+    }
 }
 
 @media only screen and (max-width: 1000px) {
     .card {
         width: 15rem;
     }
-}</style>
+}
+</style>
