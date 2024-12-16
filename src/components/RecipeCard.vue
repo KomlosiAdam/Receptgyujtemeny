@@ -20,6 +20,8 @@ const difficulty = ref("Nehézség alapján lévő keresés");
 const difficultyFilteredList = ref([]);
 const isDifficultyFiltered = ref(0);
 watch(difficulty, (newValue, oldValue) => {
+    difficultyFilteredList.value = [];
+
     isDifficultyFiltered.value = 1;
     if (newValue == 1) {
         for (let recipe of filteredRecipes.value) {
