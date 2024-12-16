@@ -1,5 +1,6 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch ,defineEmits } from 'vue';
+import { Recipe } from '../classes/Recipe'
 
 const recipeName = ref('');
 const cookingTime = ref('');
@@ -74,6 +75,13 @@ const closeModal = () => {
 const showModal = ref(false);
 
 const modalData = ref({});
+
+const emit = defineEmits();
+
+const save = ()=> {
+  showModal.value = false;
+  emit("add", new Recipe(1, recipeName.value, cookingTime.value, difficulty.value, "/", "Leírás"));
+};
 </script>
 
 <template>
@@ -124,7 +132,7 @@ const modalData = ref({});
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary modal-button" @click="closeModal">Mégsem</button>
-                <button type="button" class="btn btn-primary modal-button" @click="closeModal">Mentés</button>
+                <button type="button" class="btn btn-primary modal-button" @click="save">Mentés</button>
               </div>
             </div>
           </div>
@@ -163,7 +171,7 @@ const modalData = ref({});
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   z-index: 1040;
 }
 
