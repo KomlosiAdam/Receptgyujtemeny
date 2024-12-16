@@ -1,13 +1,11 @@
 <script setup>
 import { ref, watch } from 'vue';
 
-// Form adatok
 const recipeName = ref('');
 const cookingTime = ref('');
 const difficulty = ref('');
 const description = ref('');
 
-// Hibák kezelése
 const errors = ref({
   recipeName: '',
   cookingTime: '',
@@ -15,10 +13,8 @@ const errors = ref({
   description: '',
 });
 
-// Gomb engedélyezés
 const isButtonEnabled = ref(false);
 
-// Validációs funkciók
 const validateRecipeName = () => {
   if (!recipeName.value) {
     errors.value.recipeName = 'Étel neve nem lehet üres!';
@@ -55,35 +51,28 @@ const validateDescription = () => {
   }
 };
 
-// Validáció frissítése
 const validateForm = () => {
   validateRecipeName();
   validateCookingTime();
   validateDifficulty();
   validateDescription();
-  // A gomb engedélyezése, ha nincs hiba
   isButtonEnabled.value = !Object.values(errors.value).some(error => error !== '');
 };
 
-// Watch a form mezők figyelésére
 watch([recipeName, cookingTime, difficulty, description], validateForm);
 
-// Modal megnyitása
 const openModal = () => {
   if (isButtonEnabled.value) {
     showModal.value = true;
   }
 };
 
-// Modal bezárása
 const closeModal = () => {
   showModal.value = false;
 };
 
-// Modal láthatóságának kezelése
 const showModal = ref(false);
 
-// A végleges adatokat megjelenítjük a modálban
 const modalData = ref({});
 </script>
 
@@ -148,7 +137,6 @@ const modalData = ref({});
 <style scoped>
 .col-md-6 {
   margin-top: 150px !important;
-  border: 1px solid black;
 }
 .btn-success:hover {
   background-color: rgb(0, 192, 0);
@@ -185,7 +173,7 @@ const modalData = ref({});
   transform: translate(-50%, -50%);
   z-index: 1050;
 }
-.modal-content, .close {
+.modal-content, .close, .col-md-6 {
   border: 1px solid black;
   border-radius: 5px;
 }
