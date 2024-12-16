@@ -19,31 +19,38 @@ const filteredRecipes = computed(() => {
 const difficulty = ref("Nehézség alapján lévő keresés");
 const difficultyFilteredList = ref([]);
 const isDifficultyFiltered = ref(0);
-watch(difficulty, (newValue, oldValue) => {
+watch(difficulty, (newValue) => {
     difficultyFilteredList.value = [];
 
     isDifficultyFiltered.value = 1;
+    const sourceList = filteredRecipes.value.length > 0 ? filteredRecipes.value : recipesList.value;
+
     if (newValue == 1) {
-        for (let recipe of filteredRecipes.value) {
-            if (recipe.getDifficulty() == "könnyű") {
-                difficultyFilteredList.value.push(recipe);
-            }
-        }
+        difficultyFilteredList.value = sourceList.filter(recipe => recipe.getDifficulty() === "könnyű");
     } else if (newValue == 2) {
-        for (let recipe of filteredRecipes.value) {
-            if (recipe.getDifficulty() == "közepes") {
-                difficultyFilteredList.value.push(recipe);
-            }
-        }
+        difficultyFilteredList.value = sourceList.filter(recipe => recipe.getDifficulty() === "közepes");
     } else if (newValue == 3) {
-        for (let recipe of filteredRecipes.value) {
-            if (recipe.getDifficulty() == "nehéz") {
-                difficultyFilteredList.value.push(recipe);
-            }
-        }
+        difficultyFilteredList.value = sourceList.filter(recipe => recipe.getDifficulty() === "nehéz");
+    } else {
+        isDifficultyFiltered.value = 0; // Reset if "Nehézség alapján lévő keresés"
     }
 });
+
+const sort = ref("Rendezés");
+const sortedRecipes = computed(() => {
+    let sourceList = isDifficultyFiltered.value === 1 ? difficultyFilteredList.value : filteredRecipes.value;
+
+    if (sort.value == 1) {
+        // Név szerint rendezés
+        return [...sourceList].sort((a, b) => a.getName().localeCompare(b.getName()));
+    } else if (sort.value == 2) {
+        // Elkészítési idő szerint rendezés
+        return [...sourceList].sort((a, b) => a.getCookTime() - b.getCookTime());
+    }
+    return sourceList; // Alapértelmezett lista
+});
 </script>
+
 
 <template>
     <div class="container-fluid">
@@ -59,7 +66,7 @@ watch(difficulty, (newValue, oldValue) => {
                     <option value="3">Nehéz</option>
                 </select>
 
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" v-model="sort">
                     <option selected>Rendezés</option>
                     <option value="1">Név szerint</option>
                     <option value="2">Elkészítési időszerint</option>
@@ -69,8 +76,8 @@ watch(difficulty, (newValue, oldValue) => {
         </div>
 
         <div class="row cards">
-            <div v-if="isDifficultyFiltered!=1">
-                <div class="col-md-4" v-for="recipe in filteredRecipes" v-if="filteredRecipes.length != 0">
+            <div v-if="isDifficultyFiltered != 1">
+                <div class="col-md-4" v-for="recipe in sortedRecipes" v-if="sortedRecipes.length != 0">
                     <div class="card">
                         <img :src=recipe.getImageURL() class="card-img-top" :alt=recipe.getName()
                             :title=recipe.getName()>
@@ -91,7 +98,7 @@ watch(difficulty, (newValue, oldValue) => {
                 </div>
             </div>
             <div v-else>
-                <div class="col-md-4" v-for="recipe in difficultyFilteredList" v-if="filteredRecipes.length != 0">
+                <div class="col-md-4" v-for="recipe in sortedRecipes" v-if="sortedRecipes.length != 0">
                     <div class="card">
                         <img :src=recipe.getImageURL() class="card-img-top" :alt=recipe.getName()
                             :title=recipe.getName()>
@@ -112,6 +119,7 @@ watch(difficulty, (newValue, oldValue) => {
                 </div>
             </div>
         </div>
+
     </div>
 
 </template>
@@ -123,23 +131,29 @@ watch(difficulty, (newValue, oldValue) => {
     color: #fff;
     width: 35%;
 }
+
 .easy,
 .medium,
 .hard,
 .row form {
     border-radius: 10px;
 }
-.btn-primary:hover{
+
+.btn-primary:hover {
     text-decoration: none;
     background-color: #fff;
-    color: #000;  
+    color: #000;
 }
-.card:hover,.btn-primary:hover{
+
+.card:hover,
+.btn-primary:hover {
     animation-duration: 10ms;
 }
-.card:hover{
+
+.card:hover {
     width: 72%;
 }
+
 .row form {
     width: 80%;
     margin: 30px auto auto auto;
@@ -198,6 +212,10 @@ form {
         margin: 20px auto;
         width: 18rem;
     }
+
+    .card:hover {
+    width: 35%;
+}
 }
 
 @media only screen and (max-width: 1000px) {
